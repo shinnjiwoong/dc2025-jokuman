@@ -67,7 +67,7 @@ export default function CDSwiper({
                 {songs.map((song, index) => (
                     <SwiperSlide
                         key={song.id}
-                        className="flex items-center justify-center h-full translate-y-[-10%]"
+                        className="flex items-center justify-center h-full translate-y-[-5%]"
                     >
                         <div
                             className={`w-full h-full flex justify-center transition-transform duration-300 ${

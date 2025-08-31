@@ -38,24 +38,6 @@ export default function PlayBar({
                     </h3>
                 </div>
 
-                {/* 재생 컨트롤 */}
-                <div className="flex items-center space-x-4">
-                    <button
-                        onClick={onPlayPause}
-                        className=" text-white flex items-center justify-center"
-                    >
-                        {isPlaying ? (
-                            <img
-                                src="/pause.svg"
-                                alt=""
-                                className="w-10 h-10"
-                            />
-                        ) : (
-                            <img src="/play.svg" alt="" className="w-10 h-10" />
-                        )}
-                    </button>
-                </div>
-
                 {/* 진행바 */}
                 <div className="flex-1 min-w-0 w-[50%]">
                     <div className="w-full bg-black h-2">
@@ -70,10 +52,24 @@ export default function PlayBar({
                             }}
                         ></div>
                     </div>
-                    <div className="flex justify-between text-sm text-gray-600 mt-1">
-                        <span>{formatTime(currentTime)}</span>
-                        <span>{formatTime(duration)}</span>
-                    </div>
+                </div>
+
+                {/* 재생 컨트롤 */}
+                <div className="flex items-center space-x-4">
+                    <button
+                        onClick={onPlayPause}
+                        className=" text-white flex items-center justify-center translate-x-[-25%]"
+                    >
+                        {isPlaying ? (
+                            <img
+                                src="/pause.svg"
+                                alt=""
+                                className="w-10 h-10"
+                            />
+                        ) : (
+                            <img src="/play.svg" alt="" className="w-10 h-10" />
+                        )}
+                    </button>
                 </div>
             </div>
         </div>

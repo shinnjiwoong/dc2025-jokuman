@@ -19,42 +19,42 @@ const songs: Song[] = [
         title: '조쿠마',
         artist: '아티스트 1',
         src: '/music/song1.mp3',
-        cover: '/1_title.svg',
+        cover: '/1_title.png',
     },
     {
         id: 2,
         title: '빠레뜨',
         artist: '아티스트 2',
         src: '/music/song2.mp3',
-        cover: '/2.svg',
+        cover: '/2.png',
     },
     {
         id: 3,
         title: '얼라랑 내 바다',
         artist: '아티스트 3',
         src: '/music/song3.mp3',
-        cover: '/3.svg',
+        cover: '/3.png',
     },
     {
         id: 4,
         title: '내만 몰랐다 아이가',
         artist: '아티스트 4',
         src: '/music/song4.mp3',
-        cover: '/4.svg',
+        cover: '/4.png',
     },
     {
         id: 5,
         title: '밤중에 니 줄라고 쓴기다',
         artist: '아티스트 5',
         src: '/music/song5.mp3',
-        cover: '/5.svg',
+        cover: '/5.png',
     },
     {
         id: 6,
         title: '니랑 내',
         artist: '아티스트 6',
         src: '/music/song6.mp3',
-        cover: '/6.svg',
+        cover: '/6.png',
     },
 ];
 
@@ -92,7 +92,7 @@ export default function Home() {
     // };
 
     return (
-        <div className="h-screen w-full bg-[#383636] overflow-hidden p-[16px]">
+        <div className="h-screen w-full bg-[#383636] overflow-hidden">
             <div className="grid grid-cols-1 gap-[16px] fixed top-[16px] left-[16px] right-[16px]">
                 <img src="/logo.svg" alt="" className="w-full" />
                 {/* <div>

@@ -40,7 +40,7 @@ export default function CDSwiper({
     audioRef,
 }: CDSwiperProps) {
     return (
-        <div className="w-full h-screen pb-20 z-[999]">
+        <div className="w-full h-screen z-[999]">
             <Swiper
                 modules={[Pagination]}
                 spaceBetween={1100}
@@ -67,9 +67,15 @@ export default function CDSwiper({
                 {songs.map((song, index) => (
                     <SwiperSlide
                         key={song.id}
-                        className="flex items-center justify-center h-full"
+                        className="flex items-center justify-center h-full translate-y-[-10%]"
                     >
-                        <div className="w-full h-full flex justify-center">
+                        <div
+                            className={`w-full h-full flex justify-center transition-transform duration-300 ${
+                                index === currentSongIndex
+                                    ? 'translate-y-0'
+                                    : 'translate-y-0'
+                            }`}
+                        >
                             <CDPlayer
                                 songs={songs}
                                 currentSongIndex={index}

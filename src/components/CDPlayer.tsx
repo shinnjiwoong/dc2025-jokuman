@@ -80,7 +80,7 @@ export default function CDPlayer({
             {/* CD - 훨씬 크게 */}
             <div className="relative cursor-pointer" onClick={togglePlayPause}>
                 <div
-                    className={`w-[35dvw] h-[35dvw] rounded-full border-8 border-gray-300 bg-gray-100 flex items-center justify-center transition-transform duration-300 ${
+                    className={`w-[35dvw] h-[35dvw] rounded-full border-4 border-gray-300 bg-[#fff]/10 backdrop-blur-lg flex items-center justify-center transition-transform duration-300 ${
                         globalIsPlaying && isActive ? 'animate-spin' : ''
                     }`}
                     style={{ animationDuration: '3s' }}

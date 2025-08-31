@@ -1,103 +1,135 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useRef } from 'react';
+import CDSwiper from '@/components/CDSwiper';
+import PlayBar from '@/components/PlayBar';
+
+interface Song {
+    id: number;
+    title: string;
+    artist: string;
+    src: string;
+    cover: string;
+}
+
+// 샘플 곡 데이터 (실제 음악 파일로 교체하세요)
+const songs: Song[] = [
+    {
+        id: 1,
+        title: '조쿠마',
+        artist: '아티스트 1',
+        src: '/music/song1.mp3',
+        cover: '/1_title.svg',
+    },
+    {
+        id: 2,
+        title: '빠레뜨',
+        artist: '아티스트 2',
+        src: '/music/song2.mp3',
+        cover: '/2.svg',
+    },
+    {
+        id: 3,
+        title: '얼라랑 내 바다',
+        artist: '아티스트 3',
+        src: '/music/song3.mp3',
+        cover: '/3.svg',
+    },
+    {
+        id: 4,
+        title: '내만 몰랐다 아이가',
+        artist: '아티스트 4',
+        src: '/music/song4.mp3',
+        cover: '/4.svg',
+    },
+    {
+        id: 5,
+        title: '밤중에 니 줄라고 쓴기다',
+        artist: '아티스트 5',
+        src: '/music/song5.mp3',
+        cover: '/5.svg',
+    },
+    {
+        id: 6,
+        title: '니랑 내',
+        artist: '아티스트 6',
+        src: '/music/song6.mp3',
+        cover: '/6.svg',
+    },
+];
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const audioRef = useRef<HTMLAudioElement>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    const handleSongChange = (index: number) => {
+        setCurrentSongIndex(index);
+        setIsPlaying(false); // 곡 변경 시 자동으로 정지
+    };
+
+    const handlePlayPause = (playing: boolean) => {
+        setIsPlaying(playing);
+    };
+
+    const handleTimeUpdate = (time: number) => {
+        setCurrentTime(time);
+    };
+
+    const handleDurationChange = (dur: number) => {
+        setDuration(dur);
+    };
+
+    const togglePlayPause = () => {
+        setIsPlaying(!isPlaying);
+    };
+
+    // const handleTrackClick = (index: number) => {
+    //     setCurrentSongIndex(index);
+    //     setIsPlaying(true); // 트랙 클릭 시 자동으로 재생
+    // };
+
+    return (
+        <div className="h-screen w-full bg-[#383636] overflow-hidden p-[16px]">
+            <div className="grid grid-cols-1 gap-[16px] fixed top-[16px] left-[16px] right-[16px]">
+                <img src="/logo.svg" alt="" className="w-full" />
+                {/* <div>
+                    {songs.map((song, index) => (
+                        <p
+                            key={song.id}
+                            className={`text-[24px] text-white font-bold cursor-pointer hover:text-gray-300 transition-colors ${
+                                index === currentSongIndex
+                                    ? 'text-blue-400'
+                                    : ''
+                            }`}
+                            onClick={() => handleTrackClick(index)}
+                        >
+                            {index + 1}. {song.title}
+                        </p>
+                    ))}
+                </div> */}
+            </div>
+
+            <CDSwiper
+                songs={songs}
+                currentSongIndex={currentSongIndex}
+                onSongChange={handleSongChange}
+                isActive={true}
+                onPlayPause={handlePlayPause}
+                onTimeUpdate={handleTimeUpdate}
+                onDurationChange={handleDurationChange}
+                globalIsPlaying={isPlaying}
+                audioRef={audioRef}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <PlayBar
+                currentSong={songs[currentSongIndex]}
+                isPlaying={isPlaying}
+                currentTime={currentTime}
+                duration={duration}
+                onPlayPause={togglePlayPause}
+            />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
